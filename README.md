@@ -4,6 +4,20 @@ Official code for [Generative Flow Networks as Entropy-Regularized RL](https://a
 
 Currently under construction 🚧 🔨
 
+## Installation
+
+- Install PyTorch with CUDA:
+
+```sh
+conda install pytorch==2.0.0 torchvision==0.15.0 pytorch-cuda=11.8 -c pytorch -c nvidia
+```
+
+- Install dependencies:
+
+```sh
+pip install -r requirements.txt
+```
+
 
 ## Citation
 
