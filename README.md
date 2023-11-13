@@ -6,6 +6,13 @@ Currently under construction 🚧 🔨
 
 ## Installation
 
+- Create conda environment:
+
+```sh
+conda create -n gflownet-rl python=3.10
+conda activate gflownet-rl
+```
+
 - Install PyTorch with CUDA:
 
 ```sh
