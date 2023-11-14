@@ -23,17 +23,41 @@ conda install pytorch==2.0.0 torchvision==0.15.0 pytorch-cuda=11.8 -c pytorch -c
 pip install -r requirements.txt
 ```
 
-## Hypergrid experiments
+## Hypergrids
 
 Currently under construction 🚧 🔨
 
-## Molecule generation experiments
+## Molecules
 
 Currently under construction 🚧 🔨
 
-## Bit sequence generation experiments
+## Bit sequences
 
-Currently under construction 🚧 🔨
+Examples of running baselines for word length `k=8`:
+
+```
+python3 bitseq/run.py --objective tb --k 8 --learning_rate 0.001
+```
+
+```
+python3 bitseq/run.py --objective db --k 8 --learning_rate 0.001
+```
+
+```
+python3 bitseq/run.py --objective subtb --k 8 --learning_rate 0.001 --subtb_lambda 1.9
+```
+
+Example of running `SoftDQN`:
+
+```
+python3 bitseq/run.py --objective softql --m_alpha 0.0 --k 8 --learning_rate 0.001 --leaf_coeff 2.0 
+```
+
+Example of running `MunchausenDQN`:
+
+```
+python3 bitseq/run.py --objective softql --m_alpha 0.15 --k 8 --learning_rate 0.001 --leaf_coeff 2.0 
+```
 
 ## Citation
 
