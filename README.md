@@ -1,6 +1,8 @@
 # Generative Flow Networks as Entropy-Regularized RL
 
-Official code for the paper [Generative Flow Networks as Entropy-Regularized RL](https://arxiv.org/abs/2310.12934).
+Official code for the paper [Generative Flow Networks as Entropy-Regularized RL](https://arxiv.org/abs/2310.12934). 
+
+Daniil Tiapkin*, Nikita Morozov*, Alexey Naumov, Dmitry Vetrov.
 
 ## Installation
 
