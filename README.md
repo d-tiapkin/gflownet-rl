@@ -1,8 +1,6 @@
 # Generative Flow Networks as Entropy-Regularized RL
 
-Official code for [Generative Flow Networks as Entropy-Regularized RL](https://arxiv.org/abs/2310.12934).
-
-Currently under construction 🚧 🔨
+Official code for the paper [Generative Flow Networks as Entropy-Regularized RL](https://arxiv.org/abs/2310.12934).
 
 ## Installation
 
@@ -25,6 +23,17 @@ conda install pytorch==2.0.0 torchvision==0.15.0 pytorch-cuda=11.8 -c pytorch -c
 pip install -r requirements.txt
 ```
 
+## Hypergrid experiments
+
+Currently under construction 🚧 🔨
+
+## Molecule generation experiments
+
+Currently under construction 🚧 🔨
+
+## Bit sequence generation experiments
+
+Currently under construction 🚧 🔨
 
 ## Citation
 
