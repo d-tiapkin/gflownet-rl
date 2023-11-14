@@ -36,27 +36,27 @@ Currently under construction 🚧 🔨
 Examples of running baselines for word length `k=8`:
 
 ```
-python3 bitseq/run.py --objective tb --k 8 --learning_rate 0.001
+python3 bitseq/run.py --objective tb --k 8 --learning_rate 0.002
 ```
 
 ```
-python3 bitseq/run.py --objective db --k 8 --learning_rate 0.001
+python3 bitseq/run.py --objective db --k 8 --learning_rate 0.002
 ```
 
 ```
-python3 bitseq/run.py --objective subtb --k 8 --learning_rate 0.001 --subtb_lambda 1.9
+python3 bitseq/run.py --objective subtb --k 8 --learning_rate 0.002 --subtb_lambda 1.9
 ```
 
 Example of running `SoftDQN`:
 
 ```
-python3 bitseq/run.py --objective softql --m_alpha 0.0 --k 8 --learning_rate 0.001 --leaf_coeff 2.0 
+python3 bitseq/run.py --objective softql --m_alpha 0.0 --k 8 --learning_rate 0.002 --leaf_coeff 2.0 
 ```
 
 Example of running `MunchausenDQN`:
 
 ```
-python3 bitseq/run.py --objective softql --m_alpha 0.15 --k 8 --learning_rate 0.001 --leaf_coeff 2.0 
+python3 bitseq/run.py --objective softql --m_alpha 0.15 --k 8 --learning_rate 0.002 --leaf_coeff 2.0 
 ```
 
 ## Citation
