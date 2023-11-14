@@ -27,7 +27,27 @@ pip install -r requirements.txt
 
 ## Hypergrids
 
-Currently under construction 🚧 🔨
+Code for this part heavily utlizes library `torchgfn` (https://github.com/GFNOrg/torchgfn) and presented in the directory `hypergrid/`
+
+Path to configurations (utlizes `ml-collections` library):
+
+- General configuration: `hypergrid/experiments/config/general.py`
+- Algorithm: `hypergrid/experiments/config/algo.py`
+- Environment: `hypergrid/experiments/config/hypergrid.py`
+
+List of available algorithms:
+- Baselines: `db`, `tb`, `subtb` from `torchgfn` library;
+- Soft RL algorithms: `soft_ql`, `munchausen_ql`, `sac`.
+
+Example of running the experiment on environment with `height=20`, `ndim=4` with `standard` rewards, seed `3` on the algorithm `soft_dqn`.
+```bash
+    python run_hypergrid_exp.py --general experiments/config/general.py:3 --env experiments/config/hypergrid.py:standard --algo experiments/config/algo.py:soft_ql --env.height 20 --env.ndim 4
+```
+To activate learnable backward policy for this setting
+```bash
+    python run_hypergrid_exp.py --general experiments/config/general.py:3 --env experiments/config/hypergrid.py:standard --algo experiments/config/algo.py:soft_ql --env.height 20 --env.ndim 4 --algo.tied True --algo.uniform_pb False
+```
+
 
 ## Molecules
 

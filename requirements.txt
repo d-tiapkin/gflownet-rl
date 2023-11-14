@@ -1,5 +1,8 @@
 argparse
 numpy
 scipy
+tqdm
 torchrl==0.1.1
 tensordict==0.1.2
+torchgfn==1.0.0
+ml-collections==0.1.1
