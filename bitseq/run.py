@@ -41,9 +41,9 @@ parser.add_argument("--leaf_coeff", default=5.0, type=float)
 parser.add_argument("--update_target_every", default=5, type=int)
 parser.add_argument("--corr_num_rounds", default=10, type=int)
 
-# SoftQL params
+# SoftDQN params
 parser.add_argument("--start_learning", default=50, type=int)
-parser.add_argument("--softql_loss", default='Huber', type=str)
+parser.add_argument("--softdqn_loss", default='Huber', type=str)
 
 # Replay buffer parameters
 parser.add_argument("--rb_size", default=100_000, type=int)
@@ -303,7 +303,7 @@ def SubTB_train_step(model, optimizer, M, args):
     return loss.cpu().item(), batch[:, 1:].cpu()
  
 
-def SoftQL_collect_experience(rb, model, target_model, M, args):
+def SoftDQN_collect_experience(rb, model, target_model, M, args):
     # This code is pretty simple because all trajectories in our graph have the same length.
 
     # The seqence has length n/k + 1 and at the beginning looks like [2^k + 1, 2^k, 2^k, ..., 2^k].
@@ -347,9 +347,9 @@ def SoftQL_collect_experience(rb, model, target_model, M, args):
     return batch[:, 1:].cpu()
         
 
-def SoftQL_learn_rb(progress, rb, model, target_model, optimizer, M, args):
+def SoftDQN_learn_rb(progress, rb, model, target_model, optimizer, M, args):
     # Select loss function
-    if args.softql_loss == 'Huber':
+    if args.softdqn_loss == 'Huber':
         loss_fn = torch.nn.HuberLoss(reduction='none')
     else:
         loss_fn = torch.nn.MSELoss(reduction='none')
@@ -468,7 +468,7 @@ def main(args):
 
     model = TransformerModel(ntoken=2**args.k+2, d_model=64, d_hid=64, nhead=8, nlayers=3, 
                              seq_len=args.n//args.k, dropout=args.dropout).to(device)
-    if args.objective == "softql":
+    if args.objective == "softdqn":
         target_model = TransformerModel(ntoken=2**args.k+2, d_model=64, d_hid=64, nhead=8, nlayers=3, 
                                         seq_len=args.n//args.k, dropout=args.dropout).to(device)
         target_model.load_state_dict(model.state_dict())
@@ -494,7 +494,7 @@ def main(args):
 
     corr_nums = []
     mode_nums = []
-    if args.objective == "softql":
+    if args.objective == "softdqn":
         # Renormalize entropy for Munchausen DQN
         args.entropy_coeff *= 1/(1 - args.m_alpha)
     
@@ -506,12 +506,12 @@ def main(args):
             loss, batch = DB_train_step(model, optimizer, M, args)
         elif args.objective == "subtb":
             loss, batch = SubTB_train_step(model, optimizer, M, args)
-        elif args.objective == "softql":
+        elif args.objective == "softdqn":
             # First, collect experiences for experience replay
-            batch = SoftQL_collect_experience(rb, model, target_model, M, args)
+            batch = SoftDQN_collect_experience(rb, model, target_model, M, args)
             # Next, sample transitions from the buffer and calculate the loss
             if it > args.start_learning:
-                loss = SoftQL_learn_rb(progress, rb, model, target_model, optimizer, M, args)
+                loss = SoftDQN_learn_rb(progress, rb, model, target_model, optimizer, M, args)
             else:
                 loss = 0.0
 

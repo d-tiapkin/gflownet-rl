@@ -17,7 +17,7 @@ import torch
 
 from gfn.gym import HyperGrid
 
-from experiments.train_softql import train_softql
+from experiments.train_softdqn import train_softdqn
 from experiments.train_sac import train_sac
 from experiments.train_uniform import train_uniform
 from experiments.train_perfect import train_perfect
@@ -32,7 +32,7 @@ config_flags.DEFINE_config_file("algo")
 # List here all train functions
 train_fns = {
     # Our algorithms
-    'SoftQL': train_softql,
+    'SoftDQN': train_softdqn,
     'SAC': train_sac,
     # Baselines
     'TrajectoryBalance': train_baseline,

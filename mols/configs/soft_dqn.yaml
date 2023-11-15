@@ -1,0 +1,11 @@
+defaults:
+  - algorithm: soft_dqn
+  - environment: block_mol
+
+hydra:
+  run:
+    dir: ./tmp/${now:%Y-%m-%d}/${now:%H-%M-%S}
+  sweep:
+    dir: ./tmp/${now:%Y-%m-%d}/${now:%H-%M-%S}
+
+seed: 0

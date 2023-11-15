@@ -29,9 +29,6 @@ def train_sac(
     else:
         experiment_name += '_learnt-pb'
 
-    #if algo_config.is_double:
-        #experiment_name += '_Double'
-
     if algo_config.replay_buffer.replay_buffer_size > 0:
         if algo_config.replay_buffer.prioritized:
             experiment_name += '_PER'
@@ -40,9 +37,6 @@ def train_sac(
 
     if algo_config.loss_type != 'MSE':
         experiment_name += f'_loss_type={algo_config.loss_type}'
-
-    #if algo_config.munchausen.alpha > 0:
-        #experiment_name += f"_M_alpha={algo_config.munchausen.alpha}"
 
     use_wandb = len(general_config.wandb_project) > 0
     policy_module = NeuralNet(
@@ -98,7 +92,7 @@ def train_sac(
 
     replay_buffer_size = algo_config.replay_buffer.replay_buffer_size
 
-    entropy_coeff = 1  #/(1 - algo_config.munchausen.alpha)  # to make (1-alpha)*tau=1
+    entropy_coeff = 1 
     gflownet = SACGFlowNet(
         actor=policy_estimator,
         q1=DiscretePolicyEstimator(
@@ -129,7 +123,6 @@ def train_sac(
             batch_size=algo_config.replay_buffer.batch_size
         )
 
-    #print(dict(gflownet.named_parameters()))
     params = [
         {
             "params": [

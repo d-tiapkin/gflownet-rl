@@ -1,0 +1,21 @@
+repr_type: 'block_graph'
+
+nemb: 256
+min_blocks: 2
+max_blocks: 8
+include_nblocks: False
+num_conv_steps: 10   # More steps is better but more expensive
+floatX: 'float64'
+
+# Next paths are relative wrt hydra run
+proxy_path: '../../../data/pretrained_proxy'            # Path to proxy 
+bpath: '../../../data/blocks_PDB_105.json'              # Path to block data
+test_mols_path: '../../../data/some_mols_U_1k.pkl.gz'   # Path to test mols 
+
+model_version: 'v4'
+
+# Reward params
+reward_exp: 10
+reward_norm: 8
+R_min: 0.1
+log_reg_c: 2.5e-5 # (0.1/8)**4

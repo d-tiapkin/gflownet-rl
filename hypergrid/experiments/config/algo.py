@@ -4,8 +4,8 @@ from ml_collections.config_dict import ConfigDict
 def get_config(alg_name):
     algo_config = {
 
-        "soft_ql": ConfigDict({
-                'name': 'SoftQL',
+        "soft_dqn": ConfigDict({
+                'name': 'SoftDQN',
                 'tied': False,
                 'uniform_pb': True,
                 'learning_rate': 1e-3,
@@ -32,8 +32,8 @@ def get_config(alg_name):
                 'is_double': False
             }),
 
-        "munchausen_ql": ConfigDict({
-                'name': 'SoftQL',
+        "munchausen_dqn": ConfigDict({
+                'name': 'SoftDQN',
                 'tied': False,
                 'uniform_pb': True,
                 'learning_rate': 1e-3,

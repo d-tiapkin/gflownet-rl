@@ -13,21 +13,28 @@ conda create -n gflownet-rl python=3.10
 conda activate gflownet-rl
 ```
 
-- Install PyTorch with CUDA:
+- Install PyTorch with CUDA 11.8
 
 ```sh
 conda install pytorch==2.0.0 torchvision==0.15.0 pytorch-cuda=11.8 -c pytorch -c nvidia
 ```
+You can change `pytorch-cuda=11.8` with `pytorch-cuda=XX.X` to match your version of `CUDA`.
 
-- Install dependencies:
+- Install core dependencies:
 
 ```sh
 pip install -r requirements.txt
 ```
 
+-*(Optional)* Install dependencies for molecule experiemtns
+```sh
+pip install -r requirements_mols.txt
+```
+You can change `requirements_mols.txt` to match your `CUDA` version by replacing `cu118` by `cuXXX`.
+
 ## Hypergrids
 
-Code for this part heavily utlizes library `torchgfn` (https://github.com/GFNOrg/torchgfn) and presented in the directory `hypergrid/`
+Code for this part heavily utlizes library `torchgfn` (https://github.com/GFNOrg/torchgfn).
 
 Path to configurations (utlizes `ml-collections` library):
 
@@ -37,21 +44,38 @@ Path to configurations (utlizes `ml-collections` library):
 
 List of available algorithms:
 - Baselines: `db`, `tb`, `subtb` from `torchgfn` library;
-- Soft RL algorithms: `soft_ql`, `munchausen_ql`, `sac`.
+- Soft RL algorithms: `soft_dqn`, `munchausen_dqn`, `sac`.
 
 Example of running the experiment on environment with `height=20`, `ndim=4` with `standard` rewards, seed `3` on the algorithm `soft_dqn`.
 ```bash
-    python run_hypergrid_exp.py --general experiments/config/general.py:3 --env experiments/config/hypergrid.py:standard --algo experiments/config/algo.py:soft_ql --env.height 20 --env.ndim 4
+    python run_hypergrid_exp.py --general experiments/config/general.py:3 --env experiments/config/hypergrid.py:standard --algo experiments/config/algo.py:soft_dqn --env.height 20 --env.ndim 4
 ```
 To activate learnable backward policy for this setting
 ```bash
-    python run_hypergrid_exp.py --general experiments/config/general.py:3 --env experiments/config/hypergrid.py:standard --algo experiments/config/algo.py:soft_ql --env.height 20 --env.ndim 4 --algo.tied True --algo.uniform_pb False
+    python run_hypergrid_exp.py --general experiments/config/general.py:3 --env experiments/config/hypergrid.py:standard --algo experiments/config/algo.py:soft_dqn --env.height 20 --env.ndim 4 --algo.tied True --algo.uniform_pb False
 ```
 
 
 ## Molecules
 
-Currently under construction 🚧 🔨
+The presented experiments actively reuse the existing codebase for molecule generation experiments with GFlowNets (https://github.com/GFNOrg/gflownet/tree/subtb/mols).
+
+Additional requirements for molecule experiments: 
+- `pandas rdkit torch_geometric h5py ray hydra` (installation is available in `requirements_mols.txt`)
+
+The proper run requires to configure path `mols/data` by running `cd mols/data/; gunzip docked_mols.h5.gz` to unpack precomputed molecules for correlation estimation.
+
+Path to configurations of `SoftDQN` (utilizes `hydra` library)
+- General configuration: `mols/configs/soft_dqn.yaml`
+- Algorithm: `mols/configs/algorithm/soft_dqn.yaml`
+- Environment:  `mols/configs/environment/block_mol.yaml`
+
+To run `SoftDQN` with configurations prescribed above, use
+```
+    python soft_dqn.py
+```
+To reporoduce baselines, run `gflownet.py` with required parameters, we refer to the original repository https://github.com/GFNOrg/gflownet for additional details.
+
 
 ## Bit sequences
 
@@ -72,13 +96,13 @@ python3 bitseq/run.py --objective subtb --k 8 --learning_rate 0.002 --subtb_lamb
 Example of running `SoftDQN`:
 
 ```
-python3 bitseq/run.py --objective softql --m_alpha 0.0 --k 8 --learning_rate 0.002 --leaf_coeff 2.0 
+python3 bitseq/run.py --objective softdqn --m_alpha 0.0 --k 8 --learning_rate 0.002 --leaf_coeff 2.0 
 ```
 
 Example of running `MunchausenDQN`:
 
 ```
-python3 bitseq/run.py --objective softql --m_alpha 0.15 --k 8 --learning_rate 0.002 --leaf_coeff 2.0 
+python3 bitseq/run.py --objective softdqn --m_alpha 0.15 --k 8 --learning_rate 0.002 --leaf_coeff 2.0 
 ```
 
 ## Citation

@@ -1,0 +1,45 @@
+num_iterations: 50_000
+save_every: 2000
+
+# Optimizator params
+learning_rate: 5e-4
+opt_beta: 0.9
+opt_beta2: 0.999
+opt_epsilon: 1e-8
+weight_decay: 0.0
+
+# Model params
+loss_fn: 'Huber'  # 'MSE' or 'Huber'
+dueling: True  # Using of Dueling DQN
+
+# Epsilon-greedy params
+random_action_prob: 0.05
+exploration_fraction: 1e-3
+
+# RL params
+update_target_every: 0  # if 0, do soft updates
+bootstrap_tau: 0.1      # soft update parameter
+start_learning: 100_000
+update_every_traj: 1
+
+# PER params
+rb_size: 1_000_000
+rb_batch: 256
+per_alpha: 0.9
+per_beta: 0.1
+anneal_per_beta: False
+
+# Muhchausen params
+m_alpha: 0.15
+entropy_coeff: 1.0
+m_l0: -2500.0
+
+# Clipping
+clip_grad: 0.0
+clip_loss: 0.0
+
+# GFlow-specific parameter
+sample_prob: 1.0
+mbsize: 4  # Number of trajectories sampled using the same policy
+balanced_loss: False # Using of reweighted TD-loss
+leaf_coef: 1.0     # Weight of final elements in this loss
