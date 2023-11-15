@@ -13,7 +13,7 @@ conda create -n gflownet-rl python=3.10
 conda activate gflownet-rl
 ```
 
-- Install PyTorch with CUDA 11.8
+- Install PyTorch with CUDA. For our experiments we used the following versions:
 
 ```sh
 conda install pytorch==2.0.0 torchvision==0.15.0 pytorch-cuda=11.8 -c pytorch -c nvidia
@@ -63,14 +63,12 @@ The presented experiments actively reuse the existing codebase for molecule gene
 Additional requirements for molecule experiments: 
 - `pandas rdkit torch_geometric h5py ray hydra` (installation is available in `requirements_mols.txt`)
 
-The proper run requires to configure path `mols/data` by running `cd mols/data/; gunzip docked_mols.h5.gz` to unpack precomputed molecules for correlation estimation.
-
-Path to configurations of `SoftDQN` (utilizes `hydra` library)
+Path to configurations of `MunchausenDQN` (utilizes `hydra` library)
 - General configuration: `mols/configs/soft_dqn.yaml`
 - Algorithm: `mols/configs/algorithm/soft_dqn.yaml`
 - Environment:  `mols/configs/environment/block_mol.yaml`
 
-To run `SoftDQN` with configurations prescribed above, use
+To run `MunchausenDQN` with configurations prescribed above, use
 ```
     python soft_dqn.py
 ```
@@ -79,30 +77,30 @@ To reporoduce baselines, run `gflownet.py` with required parameters, we refer to
 
 ## Bit sequences
 
-Examples of running baselines for word length `k=8`:
+Examples of running `TB`, `DB` and `SubTB` baselines for word length `k=8`:
 
 ```
-python3 bitseq/run.py --objective tb --k 8 --learning_rate 0.002
-```
-
-```
-python3 bitseq/run.py --objective db --k 8 --learning_rate 0.002
+python bitseq/run.py --objective tb --k 8 --learning_rate 0.002
 ```
 
 ```
-python3 bitseq/run.py --objective subtb --k 8 --learning_rate 0.002 --subtb_lambda 1.9
+python bitseq/run.py --objective db --k 8 --learning_rate 0.002
+```
+
+```
+python bitseq/run.py --objective subtb --k 8 --learning_rate 0.002 --subtb_lambda 1.9
 ```
 
 Example of running `SoftDQN`:
 
 ```
-python3 bitseq/run.py --objective softdqn --m_alpha 0.0 --k 8 --learning_rate 0.002 --leaf_coeff 2.0 
+python bitseq/run.py --objective softdqn --m_alpha 0.0 --k 8 --learning_rate 0.002 --leaf_coeff 2.0 
 ```
 
 Example of running `MunchausenDQN`:
 
 ```
-python3 bitseq/run.py --objective softdqn --m_alpha 0.15 --k 8 --learning_rate 0.002 --leaf_coeff 2.0 
+python bitseq/run.py --objective softdqn --m_alpha 0.15 --k 8 --learning_rate 0.002 --leaf_coeff 2.0 
 ```
 
 ## Citation
