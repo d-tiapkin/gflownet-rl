@@ -106,10 +106,12 @@ python bitseq/run.py --objective softdqn --m_alpha 0.15 --k 8 --learning_rate 0.
 ## Citation
 
 ```
-@article{tiapkin2023generative,
-  title={Generative Flow Networks as Entropy-Regularized RL},
-  author={Tiapkin, Daniil and Morozov, Nikita and Naumov, Alexey and Vetrov, Dmitry},
-  journal={arXiv preprint arXiv:2310.12934},
-  year={2023}
+@inproceedings{tiapkin2024generative,
+  title={Generative flow networks as entropy-regularized rl},
+  author={Tiapkin, Daniil and Morozov, Nikita and Naumov, Alexey and Vetrov, Dmitry P},
+  booktitle={International Conference on Artificial Intelligence and Statistics},
+  pages={4213--4221},
+  year={2024},
+  organization={PMLR}
 }
 ```
